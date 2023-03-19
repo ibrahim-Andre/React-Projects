@@ -1,14 +1,51 @@
-import React from "react";
-import { Button, Card } from "react-bootstrap";
+import React, { useContext } from "react";
+import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import { CartContext } from "../CartContext";
 
 const ProductCard = (props) => {
-  const reference = props.product;
+  const product = props.product;
+  const cart = useContext(CartContext);
+  const productQuantity = cart.getProductQuantity(product.id);
   return (
     <Card>
       <Card.Body>
-        <Card.Title>{reference.title}</Card.Title>
-        <Card.Title>${reference.price}</Card.Title>
-        <Button variant="primary">Add To Cart</Button>
+        <Card.Title>{product.title}</Card.Title>
+        <Card.Title>${product.price}</Card.Title>
+        {productQuantity > 0 ? (
+          <>
+            <Form as={Row}>
+              <Form.Label column="true" sm="6">
+                In Cart: {productQuantity}
+              </Form.Label>
+              <Col sm="6">
+                <Button
+                  sm="6"
+                  className="mx-2"
+                  onClick={() => cart.addOneToCart(product.id)}>
+                  +
+                </Button>
+                <Button
+                  sm="6"
+                  className="mx-2"
+                  onClick={() => cart.removeOneFromCart(product.id)}>
+                  -
+                </Button>
+              </Col>
+            </Form>
+            <Button
+              variant="danger"
+              onClick={() => cart.deleteFromCart(product.id)}
+              className="my-2">
+              Remove from Cart
+            </Button>
+          </>
+        ) : (
+          <Button
+            variant="primary"
+            onClick={() => cart.addOneToCart(product.id)}>
+            Add To Cart
+          </Button>
+        )}
       </Card.Body>
     </Card>
   );

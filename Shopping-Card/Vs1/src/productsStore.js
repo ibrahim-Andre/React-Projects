@@ -17,11 +17,11 @@ const productsArray = [
 ];
 
 function getProductData(id) {
-  let getProductData = productsArray.find((reference) => reference.id === id);
-  if (getProductData == undefined) {
+  let productData = productsArray.find((product) => product.id === id);
+  if (productData == undefined) {
     return undefined;
   }
-  return getProductData;
+  return productData;
 }
 
 export { productsArray, getProductData };

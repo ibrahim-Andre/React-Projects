@@ -9,9 +9,9 @@ const Store = () => {
         Welcome to the Store!
       </h1>
       <Row xs={1} md={3} className="g-4">
-        {productsArray.map((reference, idx) => (
+        {productsArray.map((product, idx) => (
           <Col align="center" key={idx}>
-            <ProductCard product={reference} />
+            <ProductCard product={product} />
           </Col>
         ))}
       </Row>
